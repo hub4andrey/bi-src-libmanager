@@ -16,6 +16,8 @@
     $sql=$sql1.$sql.$sql2;
     //$out.= $sql;
 
+
+
     //=== Andrew. Add debug table with prepared SQL request (what2display, div header):
     echo $this->html->pre_display($sql, "SQL input");
 
@@ -25,7 +27,7 @@
     // $fields=array('id','name','date','isbn','link','active','descr',);
 
     //$sort= $fields;
-    $sort = array('name',)
+    $sort = array('name',);
     $out=$this->html->tablehead($what,$qry, $order, 'no_addbutton', $fields,$sort);
 
     if (!($cur = pg_query($sql))) {$this->html->HT_Error( pg_last_error()."<br><b>".$sql."</b>" );}

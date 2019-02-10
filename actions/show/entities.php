@@ -50,7 +50,8 @@
         $out.= "<td>$row[birth_date]</td>";
         $out.= "<td>$row[passport]</td>";
 
-
+echo "$sdsda<br>";
+$this->html->error('hello');
 
 
         // $out.= "<td>$type</td>";
