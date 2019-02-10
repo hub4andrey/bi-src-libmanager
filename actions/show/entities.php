@@ -24,7 +24,9 @@
 
 
     //$sort= $fields;
-    $out=$this->html->tablehead($what,$qry, $order, 'no_addbutton', $fields,$sort);
+    //=== Andrew: change column names (differ from $fields):
+    $headers=array('id','salutation','name','surname','active','type','physical','email','mobile','tel','address','country','birth date','passport',);
+    $out=$this->html->tablehead($what,$qry, $order, 'no_addbutton', $headers,$sort);
 
     if (!($cur = pg_query($sql))) {$this->html->HT_Error( pg_last_error()."<br><b>".$sql."</b>" );}
     $rows=pg_num_rows($cur);if($rows>0)$csv.=$this->data->csv($sql);
@@ -40,18 +42,27 @@
         $out.= "<td onMouseover=\"showhint('$row[descr]', this, event, '400px');\">$row[name]</td>";
         $out.= "<td>$row[surname]</td>";
         $out.= "<td>$row[active]</td>";
-        $out.= "<td>$row[type_id]</td>";
+
+        //=== Andrew: instead of entity type id, need to get entity type Name:
+        // $out.= "<td>$row[type_id]</td>";
+        $entityTypeName = $this->data->get_name('listitems', $row[type_id]);
+        $out.= "<td>$entityTypeName</td>";
+ 
+
+
         $out.= "<td>$row[physical]</td>";
         $out.= "<td>$row[email]</td>";
         $out.= "<td>$row[mobile]</td>";
         $out.= "<td>$row[tel]</td>";
         $out.= "<td>$row[address]</td>";
-        $out.= "<td>$row[country_id]</td>";
+
+        // $out.= "<td>$row[country_id]</td>";
+        $out.= "<td>" . $this->data->get_name('listitems', $row[country_id]) . "</td>";
+
         $out.= "<td>$row[birth_date]</td>";
         $out.= "<td>$row[passport]</td>";
 
-echo "$sdsda<br>";
-$this->html->error('hello');
+
 
 
         // $out.= "<td>$type</td>";

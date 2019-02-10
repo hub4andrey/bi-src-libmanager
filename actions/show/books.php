@@ -19,7 +19,7 @@
 
 
     //=== Andrew. Add debug table with prepared SQL request (what2display, div header):
-    echo $this->html->pre_display($sql, "SQL input");
+    // echo $this->html->pre_display($sql, "SQL input");
 
 
     //=== Andrew. Modify list of columns in output html table:
@@ -37,7 +37,7 @@
 
 
     //=== Andrew. Add html output with output from SQL request, in CSV format:
-    echo $this->html->pre_display($csv, "CSV input");
+    // echo $this->html->pre_display($csv, "CSV input");
 
 
 
@@ -52,11 +52,34 @@
         $out.= "<td onMouseover=\"showhint('$row[descr]', this, event, '400px');\">$row[name]</td>";
 
         // $shortDate = PROCESS row[date] to convert it to short format;
-        $out.= "<td>$row[date]</td>";
+        //=== Andrew: method 1 (all datetime : 10.02.2019 14:22:08.527541) :
+        // $out.= "<td>$row[date]</td>";
+
+        //=== Andrew: method 2:
         $dateFormated = $this->dates->F_date($row[date]);
-        $out.= "<td>$dateFormated</td>";
+        // $out.= "<td>$dateFormated</td>";
+        $out.=$this->html->tag($dateFormated,'td','class');
+
+
         $out.= "<td>$row[isbn]</td>";
-        $out.= "<td>$row[link]</td>";
+        
+
+        //=== Andrew: wrap hlink to nice clikable html element:
+        // function link_badge($title = '', $link = '', $class = '', $warn = '')
+        // $link = $this->html->link_badge('go to', $row[link] );
+        // $out.= "<td>$link</td>";
+
+        //=== Andrew: url to button:
+        // $link = $this->html->link_button('go to', $row[link], 'btn' );
+        // $link = $this->html->link_button('go to', $row[link], 'btn-mini' );
+        // $link = $this->html->link_button('go to', $row[link], 'btn-micro btn-info' );
+        // $link = $this->html->link_button('go to', $row[link], 'btn-micro btn-success' );
+        $link = $this->html->link_button('go to', $row[link], 'btn-micro btn-danger' );
+        $out.= "<td>$link</td>";
+
+
+
+
         // $out.= "<td class='n'>".$this->html->money($row[amount])."</td>";
         $out.= "</tr>";
         $totals[2]+=$row[qty];
@@ -65,4 +88,22 @@
     }
     $this->livestatus('');
     include(FW_DIR.'/helpers/end_table.php');
+
+
+    $bs = '    
+    <div class="btn-group">
+      <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+        Action
+        <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <!-- dropdown menu links -->
+            <li><a href="http://localhost:8000/?act=details&what=books&id=1">Book 1</a class="btn"></a></li>
+            <li><a href="http://localhost:8000/?act=details&what=books&id=2">Book 2</a class="btn"></a></li>
+      </ul>
+    </div>';
+
+$body .=$bs;
+
+
     
