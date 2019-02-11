@@ -202,7 +202,7 @@ foreach ($vals_array as $vals) {
 }
 
 
-// clean up var:
+// flush var:
 unset($vals_array);
 
 $vals_array[]=[
@@ -227,6 +227,14 @@ foreach ($vals_array as $vals) {
     echo "Insert Books $vals[name]<br>";
     $id=$this->db->insert_db('books', $vals);
 }
+
+
+//=== Andrew: add recores 'Names for Alert Types' into listitems table:
+// flush var:
+// unset($vals_array);
+// $vals_array[]=['name'
+
+
 
 
 //copy access
