@@ -5,6 +5,7 @@ $name=$this->html->readRQ('name');
 
 if($name=='')$name = $this->data->get_new_name($what, '','','BTR-');
 
+//=== Andrew: don't need to paste date into new row in table books_transactions, because  date timestamp DEFAULT now():
 // $date=$this->html->readRQ('date');
 
 

@@ -8,6 +8,8 @@ $link=$this->html->readRQ('link');
 $active=$this->html->readRQn('active');
 $descr=$this->html->readRQ('descr');
 
+
+
     
     $vals=array(
 	'name'=>$name,
@@ -23,5 +25,15 @@ $descr=$this->html->readRQ('descr');
     // exit;
 
     if($id==0){$id=$this->db->insert_db($what,$vals);}else{$id=$this->db->update_db($what,$id,$vals);}
+    
+
+    if($descr==''){
+    	$descr=$this->project->get_book_descr($id);
+    	$this->db->update_db('books', $id, ['descr'=>$descr]); //update column 'descr' by val = $descr
+    }
+
+
     $body.=$out;
+
+    	
     

@@ -23,7 +23,7 @@
 
 
     //=== Andrew. Modify list of columns in output html table:
-    $fields=array('id','name','date','isbn','link',);
+    $fields=array('id','name','date','isbn','link','descr');
     // $fields=array('id','name','date','isbn','link','active','descr',);
 
     //$sort= $fields;
@@ -62,6 +62,9 @@
 
 
         $out.= "<td>$row[isbn]</td>";
+
+
+
         
 
         //=== Andrew: wrap hlink to nice clikable html element:
@@ -75,7 +78,15 @@
         // $link = $this->html->link_button('go to', $row[link], 'btn-micro btn-info' );
         // $link = $this->html->link_button('go to', $row[link], 'btn-micro btn-success' );
         $link = $this->html->link_button('go to', $row[link], 'btn-micro btn-danger' );
-        $out.= "<td>$link</td>";
+        $out.="<td>$link</td>";
+
+
+        //=== Andrew: attempt to add book image:
+        // $img = ($row[link]!='')? $this->project->get_book_img($row[link]) : '';
+        // $out.="<td>$img</td>";
+
+        $out.= "<td>$row[descr]</td>";
+
 
 
 
